@@ -402,6 +402,9 @@ impl ConnectorData {
                 enums::Connector::Datatrans => {
                     Ok(ConnectorEnum::Old(Box::new(connector::Datatrans::new())))
                 }
+                enums::Connector::Demopay => {
+                    Ok(ConnectorEnum::Old(Box::new(connector::Demopay::new())))
+                }
                 enums::Connector::Deutschebank => {
                     Ok(ConnectorEnum::Old(Box::new(connector::Deutschebank::new())))
                 }
