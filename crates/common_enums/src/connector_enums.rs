@@ -25,6 +25,7 @@ pub use crate::PaymentMethodType;
 #[strum(serialize_all = "snake_case")]
 /// RoutableConnectors are the subset of Connectors that are eligible for payments routing
 pub enum RoutableConnectors {
+	Demopay,
     Adyenplatform,
     #[cfg(feature = "dummy_connector")]
     #[serde(rename = "stripe_billing_test")]
@@ -179,6 +180,7 @@ pub enum RoutableConnectors {
 #[serde(rename_all = "snake_case")]
 #[strum(serialize_all = "snake_case")]
 pub enum Connector {
+	Demopay,
     Adyenplatform,
     #[cfg(feature = "dummy_connector")]
     #[serde(rename = "stripe_billing_test")]
@@ -432,7 +434,7 @@ impl Connector {
             | Self::Helcim
             | Self::HyperswitchVault
             | Self::Iatapay
-			| Self::Inespay
+            | Self::Inespay
             | Self::Itaubank
             | Self::Jpmorgan
             | Self::Juspaythreedsserver
@@ -493,8 +495,9 @@ impl Connector {
             | Self::Noon
             | Self::Tokenio
             | Self::Stripe
-            | Self::Datatrans => false,
-            Self::Checkout | Self::Nmi |Self::Cybersource | Self::Archipel => true,
+            | Self::Datatrans
+            | Self::Demopay => false,
+            Self::Checkout | Self::Nmi | Self::Cybersource | Self::Archipel => true,
         }
     }
 
@@ -536,6 +539,7 @@ impl Connector {
 impl From<RoutableConnectors> for Connector {
     fn from(routable_connector: RoutableConnectors) -> Self {
         match routable_connector {
+            RoutableConnectors::Demopay => Self::Demopay,
             RoutableConnectors::Adyenplatform => Self::Adyenplatform,
             #[cfg(feature = "dummy_connector")]
             RoutableConnectors::DummyBillingConnector => Self::DummyBillingConnector,
@@ -653,6 +657,7 @@ impl TryFrom<Connector> for RoutableConnectors {
 
     fn try_from(connector: Connector) -> Result<Self, Self::Error> {
         match connector {
+            Connector::Demopay => Ok(Self::Demopay),
             Connector::Adyenplatform => Ok(Self::Adyenplatform),
             #[cfg(feature = "dummy_connector")]
             Connector::DummyBillingConnector => Ok(Self::DummyBillingConnector),
