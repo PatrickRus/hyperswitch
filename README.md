@@ -97,8 +97,7 @@ Each module is independent and purpose-built to optimize different aspects of pa
 
 ```bash
 # One-click local setup
-
-git clone --depth 1 --branch latest https://github.com/juspay/hyperswitch
+git clone --depth 1  https://github.com/PatrickRus/hyperswitch.git
 
 cd hyperswitch
 
